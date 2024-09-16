@@ -11,7 +11,7 @@ pipeline {
                 script {
                     sh 'echo passed'
                     // Uncomment and update if you need to check out the code
-                       git branch: 'main', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
+                    // git branch: 'main', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
                 }
             }
         }
