@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo passed'
-                    // Ensure correct credentials for Git
+                    // Git checkout with credentials
                     git branch: 'main', credentialsId: 'github', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
                 }
             }
@@ -78,10 +78,8 @@ pipeline {
     }
     post {
         always {
-            node {
-                // Archive logs or other artifacts
-                archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-            }
+            // Archive logs or other artifacts
+            archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
         }
     }
 }
