@@ -82,6 +82,6 @@ pipeline {
             node {
             // Archive logs or other artifacts
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-        }
+        }}
     }
 }
