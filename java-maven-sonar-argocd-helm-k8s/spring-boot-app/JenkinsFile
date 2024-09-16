@@ -10,6 +10,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo passed'
+                    git branch: 'main', credentialsId: 'your-git-credentials-id', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
                     // Uncomment and update if you need to check out the code
                     // git branch: 'main', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
                 }
