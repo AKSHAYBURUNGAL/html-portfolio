@@ -10,7 +10,6 @@ pipeline {
             steps {
                 script {
                     sh 'echo passed'
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero', credentialsId: 'github']]])
                     // Uncomment and update if you need to check out the code
                     // git branch: 'main', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
                 }
@@ -23,18 +22,6 @@ pipeline {
                     // Build the project and create a JAR file
                     dir('java-maven-sonar-argocd-helm-k8s/spring-boot-app') {
                         sh 'mvn clean package'
-                    }
-                }
-            }
-        }
-        stage('Static Code Analysis') {
-            environment {
-                SONAR_URL = "http://13.53.37.72:9000"
-            }
-            steps {
-                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-                    dir('java-maven-sonar-argocd-helm-k8s/spring-boot-app') {
-                        sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=$SONAR_URL'
                     }
                 }
             }
@@ -77,12 +64,10 @@ pipeline {
             }
         }
     }
-    post {
+   node { post {
         always {
             // Archive logs or other artifacts
-         
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-           
-        }
+        }}
     }
 }
