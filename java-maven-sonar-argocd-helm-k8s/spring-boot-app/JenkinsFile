@@ -10,6 +10,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo passed'
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero', credentialsId: 'github']]])
                     // Uncomment and update if you need to check out the code
                     // git branch: 'main', url: 'https://github.com/AKSHAYBURUNGAL/Jenkins-Zero-To-Hero.git'
                 }
@@ -64,10 +65,12 @@ pipeline {
             }
         }
     }
-   post {
+    post {
         always {
-            // Archive logs or other artifacts
-            archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
+            node {
+                // Archive logs or other artifacts
+                archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
+            }
         }
     }
 }
