@@ -80,7 +80,7 @@ pipeline {
     post {
         always {
             // Archive logs or other artifacts
-         node {
+         node ('') {
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
            }
         }
