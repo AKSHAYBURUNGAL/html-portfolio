@@ -64,10 +64,10 @@ pipeline {
             }
         }
     }
-   node { post {
+   post {
         always {
             // Archive logs or other artifacts
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-        }}
+        }
     }
 }
