@@ -3,10 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             agent {
-                docker {
-                    image 'admin335/ultimate-cicd:latest'
-                    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-                }
+                label 'docker' // Specify the label for the Jenkins agent
             }
             steps {
                 script {
@@ -16,10 +13,7 @@ pipeline {
         }
         stage('Build and Test') {
             agent {
-                docker {
-                    image 'admin335/ultimate-cicd:latest'
-                    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-                }
+                label 'docker' // Specify the label for the Jenkins agent
             }
             steps {
                 script {
@@ -31,10 +25,7 @@ pipeline {
         }
         stage('Build and Push Docker Image') {
             agent {
-                docker {
-                    image 'admin335/ultimate-cicd:latest'
-                    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-                }
+                label 'docker' // Specify the label for the Jenkins agent
             }
             environment {
                 DOCKER_IMAGE = "admin335/ultimate-cicd:latest:${BUILD_NUMBER}"
@@ -54,10 +45,7 @@ pipeline {
         }
         stage('Update Deployment File') {
             agent {
-                docker {
-                    image 'admin335/ultimate-cicd:latest'
-                    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-                }
+                label 'docker' // Specify the label for the Jenkins agent
             }
             environment {
                 GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
@@ -81,7 +69,7 @@ pipeline {
     }
     post {
         always {
-            node {
+            node('docker') { // Specify the label for the Jenkins agent
                 archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
             }
         }
