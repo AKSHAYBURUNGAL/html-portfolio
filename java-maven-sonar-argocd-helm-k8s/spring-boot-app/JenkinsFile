@@ -67,10 +67,8 @@ pipeline {
     }
     post {
         always {
-            node {
-                // Archive logs or other artifacts
-                archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-            }
+            // This needs to be in a node context
+            archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
         }
     }
 }
